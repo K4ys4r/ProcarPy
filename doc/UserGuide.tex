@@ -1,0 +1,708 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{ProcarPy UserGuide}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+\author{Hilal Balout}    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{ProcarPy}\label{procarpy}
+
+\subsection{What is ProcarPy}\label{what-is-procarpy}
+
+\textbf{ProcarPy} is a \href{https://www.python.org/}{\textbf{Python}}
+module which allows to parse and plot the electronic band structure
+diagram from \href{https://www.vasp.at/}{\textbf{VASP}} PROCAR file.
+\href{https://www.numpy.org/}{\textbf{Numpy}} and
+\href{https://matplotlib.org/}{\textbf{Matplotlib}} packages are
+required.
+
+\subsection{What ProcarPy can do ?}\label{what-procarpy-can-do}
+
+There is different
+\href{https://cms.mpi.univie.ac.at/wiki/index.php/PROCAR}{\textbf{PROCAR
+output format}}. However ProcarPy can parse and process all PROCAR files
+from tags below:
+
+\begin{itemize}
+\tightlist
+\item
+  LORBIT = 10 : PROCAR not decomposed (\(s\), \(p\), \(d\)).
+\item
+  LORBIT = 11 : PROCAR lm decomposed (\(s\), \(p_y\), \(p_z\), \(p_x\),
+  \(d_{xy}\), \(d_{yz}\), ...).
+\item
+  ISPIN = 2 : Spin Polarized Calculation (\(s_{up}\), \(s_{down}\),
+  \(p_{up}\), \(p_{down}\), ...).
+\item
+  LNONCOLLINEAR=.TRUE. : Spin-orbit coupling.
+\end{itemize}
+
+Then, with ProcarPy, the total and projected electronic band structure
+can be plotted.
+
+\subsection{ProcarPy Class \& Methods}\label{procarpy-class-methods}
+
+\subsubsection{PROCARBandStructure
+Class}\label{procarbandstructure-class}
+
+It is the principale calss of ProcarPy module. It takes many parameters:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class} \NormalTok{PROCARBandStructure:}
+    \KeywordTok{def} \FunctionTok{__init__}\NormalTok{(}\VariableTok{self}\NormalTok{, filename, path, ef, pathstyle, SO, spin):}
+\end{Highlighting}
+\end{Shaded}
+
+All parameters are described below:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{filename :} is a \textbf{\emph{string}} corresponds the PROCAR
+  file name.
+\item
+  \textbf{path :} is a \textbf{\emph{list}} of strings includes the
+  \(k-\)points labels used in bands calculation (default value :
+  {[}{]}).
+
+  \begin{itemize}
+  \tightlist
+  \item
+    i.e : {[}"\(L\)","\(\Gamma\)","\(X\)"{]}.
+  \end{itemize}
+\item
+  \textbf{ef :} is a \textbf{\emph{float}} corresponds to the Fermi
+  energy in \emph{eV} (default value : None).
+\item
+  \textbf{pathstyle :} is a \textbf{\emph{string}} corresponds the
+  nature of k-points path if it is continuous or discontinuous (default
+  value : discontinuous).
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \emph{pathstyle = "discontinuous"} : the k-points absciss will be a
+    sequence of numbers from 0 to k-points numbers.
+  \item
+    \emph{pathstyle = "continuous"} : the k-points absciss will be
+    calculated as below:
+  \end{itemize}
+\end{itemize}
+
+\begin{equation*}
+k_{absciss}[i] = k_{absciss} [i-1] + \mid\mid \vec{k[i]} \mid\mid ~; ~ with ~ k_{absciss}[0] = 0
+\end{equation*}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{SO :} is a \textbf{\emph{boolean}} indicates if Spin-orbit
+  coupling was used or not (default value : False).
+\item
+  \textbf{spin :} is a \textbf{\emph{boolean}} indicates if
+  Spin-polarized calculations were performed or not (default value :
+  False).
+\end{itemize}
+
+\subsubsection{Init\_Fig Method}\label{initux5ffig-method}
+
+This method initializes the plot figure . It takes two parameters.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def} \NormalTok{Init_Fig(}\VariableTok{self}\NormalTok{, width, height):}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{width :} is a \textbf{\emph{float}} defines the figure width
+  in inch (default value : 8.0 inch).
+\item
+  \textbf{height :} is a \textbf{\emph{float}} defines the figure heigth
+  in inch (default value : 6.0 inch).
+\end{itemize}
+
+\subsubsection{getTotalBandsPlot Method}\label{gettotalbandsplot-method}
+
+This method allows to plot the total electronic band structure from
+PROCAR file. Its input parameters are described below:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def} \NormalTok{getTotalBandsPlot(}\VariableTok{self}\NormalTok{, bandspin, lw, color, alpha, label):}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{bandspin :} sets the bands spin to plot:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    if spin = True : bandspin can be "up" or "down".
+  \item
+    else : bandspin is not taken into account.
+  \end{itemize}
+\item
+  \textbf{lw :} sets the line width in points (default value : 1).
+\item
+  \textbf{color :} stes the line colors (default value : blue).
+\item
+  \textbf{alpha :} sets the transparency of color (default value : 1).
+\item
+  \textbf{label :} sets the plot label for auto legend (default value :
+  Total Band and/or Spin).
+\end{itemize}
+
+\subsubsection{getOrbitalBandsPlot
+Method}\label{getorbitalbandsplot-method}
+
+This method allows to plot the Projected Band structure of atomic
+orbital (\(s\), \(p\), \(p_x\), \(p_y\), ...) for a defined atom. Its
+input parameters are described below:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def} \NormalTok{getOrbitalBandsPlot(}\VariableTok{self}\NormalTok{,orbital, atom, magn, sign, marker, color, alpha, scale, label):}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\item
+  \textbf{orbital :} sets the atomic orbital.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    if spin = True (default Value "tot\_up"):
+
+    \begin{itemize}
+    \item
+      LORBIT = 10: orbital can be one of the strings below:
+
+\begin{verbatim}
+    "s_up"   ,   "s_down"  ,
+    "p_up"   ,   "p_down"  ,
+    "d_up"   ,   "d_down"  ,
+    "tot_up" ,   "tot_down".
+\end{verbatim}
+    \item
+      LORBIT = 11: orbital can be one of the strings below:
+
+\begin{verbatim}
+    "s_up"      ,   "s_down"      ,     
+    "px_up"     ,   "px_down"     ,     
+    "py_up"     ,   "py_down"     ,     
+    "pz_up"     ,   "pz_down"     ,    
+    "dxy_up"    ,   "dxy_down"    ,    
+    "dyz_up"    ,   "dyz_down"    ,    
+    "dz2_up"    ,   "dz2_down"    ,    
+    "dxz_up"    ,   "dxz_down"    ,    
+    "dx2-y2_up" ,   "dx2-y2_down" ,
+    "tot_up"    ,   "tot_down".
+\end{verbatim}
+    \end{itemize}
+  \item
+    if spin = False (default Value "tot"):
+
+    \begin{itemize}
+    \item
+      LORBIT = 10: orbital can be one of the strings below:
+
+\begin{verbatim}
+    "s" , "p" , "d", "tot"
+\end{verbatim}
+    \item
+      LORBIT = 11: orbital can be one of the strings below:
+
+\begin{verbatim}
+    "s"  ,
+    "px" , "py" , "pz" ,
+    "dxy", "dyz", "dz2", "dxz", "dx2-y2",
+    "tot" .
+\end{verbatim}
+    \end{itemize}
+  \end{itemize}
+\item
+  \textbf{atom :} sets the atom index (integer, default value = 1).
+\item
+  \textbf{magn :} sets the projected magnetizations.
+
+  \begin{itemize}
+  \item
+    if SO = True (default Value "mtot"): magn can be one of the strings
+    below:
+
+\begin{verbatim}
+        "mtot", "mx", "my", "mz".
+\end{verbatim}
+  \item
+    else: magn is not taken into account.
+  \end{itemize}
+\item
+  \textbf{sign :} sets the orbitales contribution sign for spin-orbite
+  coupling calculations.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    if SO = True and magn != mtot : sign can be "+" or "-".
+  \item
+    else: sign is not taken into account.
+  \end{itemize}
+\item
+  \textbf{marker :} sets the plot marker. All possible markers are
+  defined \href{https://matplotlib.org/api/markers_api.html}{here}.
+\item
+  \textbf{color :} sets the marker colors (default value : blue).
+\item
+  \textbf{alpha :} sets the transparency of color (default value : 1).
+\item
+  \textbf{scale :} sets the size of marker. The the projections value
+  for every atom, in PROCAR file, are between 0 and 1. To be
+  representative the default value of scale is setted to 100.
+\item
+  \textbf{label :} sets the plot label for auto legend (default value :
+  Atom number + orbital).
+\end{itemize}
+
+\subsubsection{getAtomsRangeBandsPlot}\label{getatomsrangebandsplot}
+
+This method allows to plot the Projected Band structure of atomic
+orbital (\(s\), \(p\), \(p_x\), \(p_y\), ...) for a defined range of
+atoms. Its input parameters are described below:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def} \NormalTok{getAtomsRangeBandsPlot(}\VariableTok{self}\NormalTok{, orbital, AtomRange, magn, sign, marker, color, alpha, scale, label):}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\item
+  \textbf{orbital :} as described above for getOrbitalBandsPlot method.
+\item
+  \textbf{AtomRange :} sets a range of atoms index:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    if AtomRange is given (list of numbers) i.e {[}1, 2, 5, 10{]} to
+    plot information of atoms 1, 2, 5 and 10.
+  \item
+    else the default values are a sequence of numbers from 0 to the
+    atoms number.
+  \end{itemize}
+\item
+  \textbf{magn :} as described above for getOrbitalBandsPlot method.
+\item
+  \textbf{sign :} as described above for getOrbitalBandsPlot method.
+\item
+  \textbf{marker :} as described above for getOrbitalBandsPlot method.
+\item
+  \textbf{color :} as described above for getOrbitalBandsPlot method.
+\item
+  \textbf{alpha :} as described above for getOrbitalBandsPlot method.
+\item
+  \textbf{scale :} as described above for getOrbitalBandsPlot method.
+\item
+  \textbf{label :} as described above for getOrbitalBandsPlot method.
+\end{itemize}
+
+\subsubsection{getBandsGap Method}\label{getbandsgap-method}
+
+This method allows to calculate the band gap between two defined bands.
+It takes three parameters:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def} \NormalTok{getBandsGap(}\VariableTok{self}\NormalTok{,band1,band2,bandspin):}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{band1 :} sets the first band index.
+\item
+  \textbf{band2 :} sets the second band index.
+\item
+  \textbf{bandspin :} sets the band spin ("up", "down") if spin = True.
+\end{itemize}
+
+\subsubsection{PlotShow Method}\label{plotshow-method}
+
+This method allows to show or save the band structures plot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def} \NormalTok{PlotShow(}\VariableTok{self}\NormalTok{, ymin, ymax, xmin, xmax, savefile):}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{savefile :} sets the output file name. i.e "image1.png",
+  "output.pdf" (default value : showing of the band structures plot).
+\item
+  \textbf{xmin :} sets the minimum value of x-axis (default value : axis
+  xmin).
+\item
+  \textbf{xmax :} sets the maximum value of x-axis (default value : axis
+  xmax).
+\item
+  \textbf{ymin :} sets the minimum value of y-axis (default value : axis
+  ymin).
+\item
+  \textbf{ymax :} sets the maximum value of y-axis (default value : axis
+  ymax).
+\end{itemize}
+
+\subsection{Installation}\label{installation}
+
+ProcarPy source can be downloaded from
+\href{https://github.com/K4ys4r/ProcarPy}{GitHub Repository}. Or by git
+command:
+
+\begin{verbatim}
+git clone https://github.com/K4ys4r/ProcarPy
+\end{verbatim}
+
+Change (cd) to the ProcarPy directory, and then, on the command line,
+enter:
+
+\begin{verbatim}
+Python setup.py install
+\end{verbatim}
+
+\subsection{Report Bugs}\label{report-bugs}
+
+Report bugs at \href{https://github.com/K4ys4r/ProcarPy/issues}{Bugs}.
+For every bub, it is therfore appropriate to specify the:
+
+\begin{itemize}
+\tightlist
+\item
+  Operating system name and version.
+\item
+  Python version.
+\item
+  Detailed steps to reproduce the bug.
+\end{itemize}
+
+\subsection{Usage of ProcarPy}\label{usage-of-procarpy}
+
+Some tutorials have been performed to show how ProcarPy can be handled.
+All VASP calculations are without high precision. They are done just for
+these tutorials. VASP\_5.4.4 version has been used.
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://github.com/K4ys4r/ProcarPy/blob/master/test/Si_diamond/Si_Diamond_Tutorial.ipynb}{\textbf{Si
+  Diamond Structure}}
+\item
+  \href{https://github.com/K4ys4r/ProcarPy/blob/master/test/Fe2O3/Fe2O3_Tutorial.ipynb}{\textbf{Hematite
+  (\(\alpha-Fe_2O3\)) Spin-Polarized calculation}}
+\item
+  \href{https://github.com/K4ys4r/ProcarPy/blob/master/test/Co/Co_Tutorial.ipynb}{\textbf{Cobalt
+  Spin-Orbit coupling}}
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

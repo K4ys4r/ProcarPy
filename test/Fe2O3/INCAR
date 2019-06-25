@@ -1,0 +1,28 @@
+SYSTEM   = Fe2O3
+
+ISTART   =  0
+ICHARG   = 11
+GGA      =  PE
+MAGMOM   = 4.165 -4.165 4.165 -4.165 6*0
+#ISMEAR   = -5
+VOSKOWN  = 1
+LORBIT   = 11 
+ALGO     =     Normal
+ENCUT    =    500   
+EDIFF    =    1E-6 
+ISPIN    = 2
+
+LDAU      = .TRUE.
+LDAUTYPE  = 2
+LDAUL     = 2 -1
+LDAUU     = 5 0.00
+LDAUJ     = 0.95 0.00
+LDAUPRINT = 2
+
+LMAXMIX   = 4     
+
+LPLANE = .TRUE.
+NPAR = 6
+LSCALU = .FALSE.
+NSIM = 2
+

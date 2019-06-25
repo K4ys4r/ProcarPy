@@ -1,0 +1,7 @@
+.gitignore
+*.pyc
+Test_Read
+ProcarPy.egg-info
+build
+dist
+test/Pt
